@@ -32,7 +32,8 @@ class DBStorage:
         HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
         HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
         HBNB_ENV = getenv('HBNB_ENV')
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+        # I added default port to the hosthost (:3306)
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'.
                                       format(HBNB_MYSQL_USER,
                                              HBNB_MYSQL_PWD,
                                              HBNB_MYSQL_HOST,
@@ -50,6 +51,15 @@ class DBStorage:
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
         return (new_dict)
+
+    # Used in personal test files only (m2m.py, printdb.py)
+    def get_engine(self):
+        """Returns the engine."""
+        return self.__engine
+
+    def get_session(self):
+        """Returns the engine."""
+        return self.__session
 
     def new(self, obj):
         """add the object to the current database session"""

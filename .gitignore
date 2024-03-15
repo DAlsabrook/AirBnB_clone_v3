@@ -160,3 +160,8 @@ cython_debug/
 #.idea/
 file.json
 *.yaml
+*.txt
+create_data.py
+db_clear.py
+db_print.py
+fs_print.py
