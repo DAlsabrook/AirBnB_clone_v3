@@ -2,7 +2,7 @@
 """
 Module for creating flask api
 """
-from flask import Flask
+from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
 import os
@@ -17,9 +17,7 @@ app.register_blueprint(app_views)
 @app.errorhandler(404)
 def handle_errors(error):
     """Handle 404 page with dict"""
-    dict = {}
-    dict["error"] = "Not Found"
-    return dict
+    return jsonify({"error": "Not found"}), 404
 
 
 @app.teardown_appcontext
