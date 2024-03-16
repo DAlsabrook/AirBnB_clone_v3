@@ -14,6 +14,14 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 
 
+@app.errorhandler(404)
+def handle_errors(error):
+    """Handle 404 page with dict"""
+    dict = {}
+    dict["error"] = "Not Found"
+    return dict
+
+
 @app.teardown_appcontext
 def close_storage(exception):
     """Call storage.close()"""
