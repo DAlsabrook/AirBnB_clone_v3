@@ -12,7 +12,7 @@ def status_json():
     status["status"] = "OK"
     return status
 
-
+# Need to do pull request and review file for task 2/3 for this to work
 # @app_views.route('/api/v1/stats')
 # def get_class_counts():
 #     """Returns the counts of each classes instances"""
