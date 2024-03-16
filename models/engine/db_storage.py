@@ -3,17 +3,15 @@
 Contains the class DBStorage
 """
 
-import models
 from models.amenity import Amenity
-from models.base_model import BaseModel, Base
+from models.base_model import Base
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
 from os import getenv
-import sqlalchemy
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 classes = {"Amenity": Amenity, "City": City,
@@ -51,6 +49,29 @@ class DBStorage:
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
         return (new_dict)
+
+    def get(self, cls, id):
+        """Get on object based on its class and id"""
+        if cls in classes.values():
+            obj = self.__session.query(cls).filter(cls.id == id).first()
+            return str(obj)
+        else:
+            return None
+
+    def count(self, cls=None):
+        """
+        Counts number of objects in database for specific class or all objects
+        """
+        if cls is not None:
+            count = self.__session.query(func.count()).select_from(
+                cls).scalar()
+        else:
+            count = 0
+            for clss in classes.values():
+                iter_count = self.__session.query(func.count()).select_from(
+                    clss).scalar()
+                count += iter_count
+        return count
 
     # Used in personal test files only (m2m.py, printdb.py)
     def get_engine(self):
