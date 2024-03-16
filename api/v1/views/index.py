@@ -24,7 +24,8 @@ def status_json():
 #     from models.user import User
 #     from models.__init__ import storage
 #     classes = {"Amenity": Amenity, "City": City,
-#                "Place": Place, "Review": Review, "State": State, "User": User}
+#                "Place": Place, "Review": Review,
+#                 "State": State, "User": User}
 #     dict = {}
 #     for cls_str, cls in classes.items():
 #         dict[cls_str] = storage.count(cls)
