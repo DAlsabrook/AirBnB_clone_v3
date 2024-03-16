@@ -52,21 +52,28 @@ class DBStorage:
 
     def get(self, cls, id):
         """Get on object based on its class and id"""
+        # Check if class is a valid class
         if cls in classes.values():
+            # Query to find if the class has an object with matching id
             obj = self.__session.query(cls).filter(cls.id == id).first()
             return str(obj)
         else:
+            # Return None if not a valid class
             return None
 
     def count(self, cls=None):
         """
         Counts number of objects in database for specific class or all objects
         """
+        # Check to see if a class was given to query
         if cls is not None:
+            # Query the specific class and count instances
             count = self.__session.query(func.count()).select_from(
                 cls).scalar()
         else:
+            # If no class is given count all class instances
             count = 0
+            # Iterate through all classes and count instances
             for clss in classes.values():
                 iter_count = self.__session.query(func.count()).select_from(
                     clss).scalar()

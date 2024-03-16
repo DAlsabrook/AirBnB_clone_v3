@@ -36,11 +36,14 @@ class FileStorage:
 
     def get(self, cls, id):
         """Get on object based on its class and id"""
+        # Check if given class is a valid class
         if cls in classes.values():
+            # Iterate through all objects and find the right instance to return
             for obj in self.__objects.values():
                 if obj.id == id:
                     return obj
         else:
+            # Return None if no class is given or is not a valid class
             return None
 
     def count(self, cls=None):
