@@ -53,19 +53,19 @@ def states_with_id(state_id):
 
     # Update the state with given attributes
     elif request.method == 'PUT':
-        state = get_state_by_id(state_id)
+        state = [state for state in storage.all(State).values()
+                 if state.id == state_id]
         if state is None:
             abort(404)
         if request.is_json:
             state_data = request.get_json()
         else:
             abort(400, description="Not a JSON")
-
         for key, val in state_data.items():
             if key != 'id' and key != 'created_at' and key != 'updated_at':
-                state[key] = val
+                setattr(state[0], key, val)
         storage.save()
-        return jsonify(state), 200
+        return jsonify(state[0].to_dict()), 200
 
 
 def get_state_by_id(state_id):
