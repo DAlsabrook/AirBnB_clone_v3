@@ -59,7 +59,7 @@ def states_with_id(state_id):
         if request.is_json:
             state_data = request.get_json()
         else:
-            return jsonify({'error': 'Not a JSON'}), 400
+            abort(400, description="Not a JSON")
 
         for key, val in state_data.items():
             if key != 'id' and key != 'created_at' and key != 'updated_at':
