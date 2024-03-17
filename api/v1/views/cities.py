@@ -9,16 +9,19 @@ from models.state import State
 from flask import jsonify, abort, request
 
 
-@app_views.route('/states/<state_id/cities', methods=['GET', 'POST'],
+@app_views.route('/states/<state_id>/cities', methods=['GET', 'POST'],
                  strict_slashes=False)
 def cities_with_state(state_id):
     """Get all cities"""
     state = get_by_id(State, state_id, "dict")
+    if state is None:
+        abort(404)
+
     # Returns all city instances of the state
     if request.method == 'GET':
         cities = [city.to_dict() for city in storage.all(City).values()
-                  if city["state_id"] == state_id]
-        return jsonify(cities[0])
+                  if city.state_id == state_id]
+        return jsonify(cities)
 
     # Creates a new city instance with state relationship
     if request.method == "POST":
