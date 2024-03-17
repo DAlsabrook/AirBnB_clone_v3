@@ -16,8 +16,8 @@ def cities_with_state(state_id):
     # Returns all city instances of the state
     if request.method == 'GET':
         cities = [city.to_dict() for city in storage.all(City).values()
-                  if city.state_id == state_id]
-        return jsonify(cities)
+                  if city["state_id"] == state_id]
+        return jsonify(cities[0])
 
     # Creates a new city instance with state relationship
     if request.method == "POST":
