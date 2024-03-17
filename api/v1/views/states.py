@@ -52,14 +52,19 @@ def states_with_id(state_id):
             abort(404)
 
     # Update the state with given attributes
-    elif request.method == "PUT":
-        http_json = request.get_json(silent=True)
-        if http_json is None:
-            abort(400, description="Not a JSON")
-        for key, value in http_json.items():
-            if key not in ["id", "created_at", "updated_at"]:
-                setattr(state, key, value)
-        state.save()
+    elif request.method == 'PUT':
+        state = get_state_by_id(state_id)
+        if state is None:
+            abort(404)
+        if request.is_json:
+            state_data = request.get_json()
+        else:
+            return jsonify({'error': 'Not a JSON'}), 400
+
+        for key, val in state_data.items():
+            if key != 'id' and key != 'created_at' and key != 'updated_at':
+                setattr(state, key, val)
+        storage.save()
         return jsonify(state), 200
 
 
