@@ -42,6 +42,8 @@ def states_with_id(state_id):
 
     # Delete the state and save with code 200
     elif request.method == "DELETE":
+        states = storage.all(State)
+        state = states.get(state_id)
         storage.delete(state)
         storage.save()
         return jsonify({}), 200
@@ -52,9 +54,9 @@ def states_with_id(state_id):
         if http_json is None:
             abort(400, description="Not a JSON")
         for key, value in http_json.items():
-            if key not in ["id", "created_at", "updates_at"]:
+            if key not in ["id", "created_at", "updated_at"]:
                 setattr(state, key, value)
-                state.save()
+        state.save()
         return jsonify(state), 200
 
 
