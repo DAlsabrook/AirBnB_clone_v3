@@ -63,9 +63,9 @@ def states_with_id(state_id):
 
         for key, val in state_data.items():
             if key != 'id' and key != 'created_at' and key != 'updated_at':
-                setattr(state, key, val)
+                state[key] = val
         storage.save()
-        return jsonify(state.to_dict()), 200
+        return jsonify(state), 200
 
 
 def get_state_by_id(state_id):
