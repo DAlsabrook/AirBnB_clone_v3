@@ -9,7 +9,8 @@ from models.state import State
 from flask import jsonify, abort, request
 
 
-@app_views.route('/states/<state_id/cities', methods=['GET', 'POST'], strict_slashes=False)
+@app_views.route('/states/<state_id/cities', methods=['GET', 'POST'],
+                 strict_slashes=False)
 def cities_with_state(state_id):
     """Get all cities"""
     state = get_by_id(State, state_id, "dict")
@@ -30,6 +31,7 @@ def cities_with_state(state_id):
         setattr(new_city, "state_id", state_id)
         new_city.save()
         return jsonify(new_city.to_dict()), 201
+
 
 @app_views.route('/cities/<city_id>', methods=['GET', 'DELETE', 'PUT'])
 def cities_with_id(city_id):
