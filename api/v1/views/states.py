@@ -8,11 +8,11 @@ from models.state import State
 from flask import jsonify, abort, request
 
 
-@app_views.route('/api/v1/states', methods=['GET', 'POST'])
+@app_views.route('/states', methods=['GET', 'POST'], strict_slashes=False)
 def states():
     """Get all states"""
     if request.method == 'GET':
-        states = [state.to_dict() for state in storage.all("State").values()]
+        states = [state.to_dict() for state in storage.all(State).values()]
         return jsonify(states)
     if request.method == "POST":
         http_json = request.get_json(silent=True)
@@ -26,7 +26,7 @@ def states():
         return jsonify(new_state.to_dict()), 201
 
 
-@app_views.route('/api/v1/states/<state_id>', methods=['GET', 'DELETE', 'PUT'])
+@app_views.route('/states/<state_id>', methods=['GET', 'DELETE', 'PUT'])
 def states_with_id(state_id):
     """Get one specific state object by id"""
     state = get_state_by_id(state_id)
