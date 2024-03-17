@@ -42,11 +42,14 @@ def states_with_id(state_id):
 
     # Delete the state and save with code 200
     elif request.method == "DELETE":
-        states = storage.all(State)
-        state = states.get(state_id)
-        storage.delete(state)
-        storage.save()
-        return jsonify({}), 200
+        all_states = storage.all(State)
+        state = all_states.get('State.' + state_id)
+        if state:
+            storage.delete(state)
+            storage.save()
+            return jsonify({}), 200
+        else:
+            abort(404)
 
     # Update the state with given attributes
     elif request.method == "PUT":
