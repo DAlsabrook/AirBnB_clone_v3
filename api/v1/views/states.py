@@ -12,7 +12,7 @@ from flask import jsonify, abort, request
 def states():
     """Get all states"""
     if request.method == 'GET':
-        states = [state.to_dict() for state in storage.all(State).values()]
+        states = [state.to_dict() for state in storage.all("State").values()]
         return jsonify(states)
     if request.method == "POST":
         http_json = request.get_json(silent=True)
