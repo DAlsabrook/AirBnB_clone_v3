@@ -3,6 +3,7 @@
 Module for creating flask api
 """
 from flask import Flask, jsonify
+from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
 import os
@@ -12,6 +13,9 @@ app = Flask(__name__)
 
 # Register the blueprint
 app.register_blueprint(app_views)
+
+# Set up CORS to allow access from any origin to all routes
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 @app.errorhandler(404)
