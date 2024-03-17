@@ -79,9 +79,9 @@ def get_by_id(cls, id, switch):
     """Function to get object by id"""
     if switch == "dict":
         obj = [obj.to_dict() for obj in storage.all(cls).values()
-                    if obj.id == id]
+               if obj.id == id]
         return obj[0] if obj else None
     if switch == "obj":
         obj = [obj for obj in storage.all(cls).values()
-                    if obj.id == id]
+               if obj.id == id]
         return obj if obj else None
