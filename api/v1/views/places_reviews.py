@@ -21,7 +21,7 @@ def review_with_place(place_id):
     # Returns all review instances of the place
     if request.method == 'GET':
         reviews = [review.to_dict() for review in storage.all(Review).values()
-                  if review.place_id == place_id]
+                   if review.place_id == place_id]
         return jsonify(reviews)
 
     # Creates a new review instance with place relationship
