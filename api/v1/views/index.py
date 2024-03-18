@@ -23,6 +23,7 @@ def get_class_counts():
     from models.state import State
     from models.user import User
     from models.__init__ import storage
+
     classes = {"amenities": Amenity, "cities": City,
            "places": Place, "reviews": Review, "states": State, "users": User}
     dict = {obj: storage.count(classes[obj]) for obj in classes}
