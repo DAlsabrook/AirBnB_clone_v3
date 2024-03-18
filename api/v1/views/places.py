@@ -29,6 +29,8 @@ def place_with_city(city_id):
         http_json = request.get_json(silent=True)
         if http_json is None:
             abort(400, description="Not a JSON")
+        if 'name' not in http_json:
+            abort(400, description="Missing name")
         if 'user_id' not in http_json:
             abort(400, description="Missing user_id")
         user_check = get_by_id(User, http_json["user_id"], "obj")
