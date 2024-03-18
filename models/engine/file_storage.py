@@ -34,6 +34,29 @@ class FileStorage:
             return new_dict
         return self.__objects
 
+    def get(self, cls, id):
+        """Get on object based on its class and id"""
+        # Check if given class is a valid class
+        if cls in classes.values():
+            # Iterate through all objects and find the right instance to return
+            for obj in self.__objects.values():
+                if obj.id == id:
+                    return obj
+        else:
+            # Return None if no class is given or is not a valid class
+            return None
+
+    def count(self, cls=None):
+        """
+        Counts number of objects in database for specific class or all objects
+        """
+        from models import storage
+        count = 0
+        obj_dict = storage.all(cls)
+        for obj in obj_dict:
+            count += 1
+        return count
+
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
         if obj is not None:
