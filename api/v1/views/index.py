@@ -13,6 +13,7 @@ def status_json():
     status["status"] = "OK"
     return status
 
+
 @app_views.route('/stats', strict_slashes=False, methods=['GET'])
 def get_class_counts():
     """Returns the counts of each classes instances"""
@@ -25,6 +26,7 @@ def get_class_counts():
     from models.__init__ import storage
 
     classes = {"amenities": Amenity, "cities": City,
-           "places": Place, "reviews": Review, "states": State, "users": User}
+               "places": Place, "reviews": Review,
+               "states": State, "users": User}
     dict = {obj: storage.count(classes[obj]) for obj in classes}
     return jsonify(dict)
