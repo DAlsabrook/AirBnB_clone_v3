@@ -56,7 +56,7 @@ class DBStorage:
         if cls in classes.values():
             # Query to find if the class has an object with matching id
             obj = self.__session.query(cls).filter(cls.id == id).first()
-            return str(obj)
+            return obj
         else:
             # Return None if not a valid class
             return None
