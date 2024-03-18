@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Module to handle the amenity class routes
+Module to handle the User class routes
 """
 from api.v1.views import app_views
 from models import storage
