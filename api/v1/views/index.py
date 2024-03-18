@@ -3,6 +3,7 @@
 Module to contain routes
 """
 from api.v1.views import app_views
+from flask import jsonify
 
 
 @app_views.route('/status')
@@ -12,7 +13,7 @@ def status_json():
     status["status"] = "OK"
     return status
 
-@app_views.route('/stats')
+@app_views.route('/stats', methods=['GET'])
 def get_class_counts():
     """Returns the counts of each classes instances"""
     from models.amenity import Amenity
@@ -25,7 +26,5 @@ def get_class_counts():
     classes = {"Amenity": Amenity, "City": City,
                "Place": Place, "Review": Review,
                 "State": State, "User": User}
-    dict = {}
-    for cls_str, cls in classes.items():
-        dict[cls_str] = storage.count(cls)
-    return dict
+    dict = {cls_str: storage.count(cls) for cls_str, cls in classes.items()}
+    return jsonify(dict)
