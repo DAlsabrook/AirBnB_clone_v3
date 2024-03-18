@@ -31,13 +31,13 @@ def review_with_place(place_id):
             abort(400, description="Not a JSON")
         if 'name' not in http_json:
             abort(400, description="Missing name")
+        if "text" not in http_json:
+            abort(400, description="Missing text")
         if 'user_id' not in http_json:
             abort(400, description="Missing user_id")
         user_check = get_by_id(User, http_json["user_id"], "obj")
         if user_check is None:
             abort(404)
-        if "text" not in http_json:
-            abort(400, description="Missing text")
         new_review = Review(**http_json)
         setattr(new_review, "place_id", place_id)
         new_review.save()
@@ -59,7 +59,7 @@ def reviews_with_id(review_id):
     # Delete the review and save with code 200
     elif request.method == "DELETE":
         all_reviews = storage.all(Review)
-        review = all_reviews.get('review.' + review_id)
+        review = all_reviews.get('Review.' + review_id)
         if review:
             storage.delete(review)
             storage.save()
