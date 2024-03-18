@@ -8,8 +8,7 @@ from models.user import User
 from flask import jsonify, abort, request
 
 
-@app_views.route('/users', methods=['GET', 'POST'],
-                 strict_slashes=False)
+@app_views.route('/users', methods=['GET', 'POST'], strict_slashes=False)
 def users():
     """Get all users"""
 
@@ -24,8 +23,10 @@ def users():
         http_json = request.get_json(silent=True)
         if http_json is None:
             abort(400, description="Not a JSON")
-        if 'name' not in http_json:
-            abort(400, description="Missing name")
+        if 'email' not in http_json:
+            abort(400, description="Missing email")
+        if 'password' not in http_json:
+            abort(400, description="Missing password")
         new_user = User(**http_json)
         new_user.save()
         return jsonify(new_user.to_dict()), 201
