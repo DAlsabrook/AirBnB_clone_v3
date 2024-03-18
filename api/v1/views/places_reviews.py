@@ -29,15 +29,13 @@ def review_with_place(place_id):
         http_json = request.get_json(silent=True)
         if http_json is None:
             abort(400, description="Not a JSON")
-        if 'name' not in http_json:
-            abort(400, description="Missing name")
-        if "text" not in http_json:
-            abort(400, description="Missing text")
         if 'user_id' not in http_json:
             abort(400, description="Missing user_id")
         user_check = get_by_id(User, http_json["user_id"], "obj")
         if user_check is None:
             abort(404)
+        if "text" not in http_json:
+            abort(400, description="Missing text")
         new_review = Review(**http_json)
         setattr(new_review, "place_id", place_id)
         new_review.save()
