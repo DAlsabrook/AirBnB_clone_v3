@@ -23,8 +23,8 @@ def get_class_counts():
     from models.state import State
     from models.user import User
     from models.__init__ import storage
-    classes = {"Amenity": Amenity, "City": City,
-               "Place": Place, "Review": Review,
-                "State": State, "User": User}
+    classes = {"amenities": Amenity, "cities": City,
+               "places": Place, "reviews": Review,
+                "states": State, "users": User}
     dict = {cls_str: storage.count(cls) for cls_str, cls in classes.items()}
     return jsonify(dict)
