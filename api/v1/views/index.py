@@ -17,10 +17,10 @@ def status_json():
 def get_class_counts():
     """Returns the counts of each classes instances"""
     from models.__init__ import storage
-    return jsonify({
-                    "amenities": storage.count("Amenity"),
-                    "cities": storage.count("City"),
-                    "places": storage.count("Place"),
-                    "reviews": storage.count("Review"),
-                    "states": storage.count("State"),
-                    "users": storage.count("User")})
+    return {
+        "amenities": storage.count("Amenity"),
+        "cities": storage.count("City"),
+        "places": storage.count("Place"),
+        "reviews": storage.count("Review"),
+        "states": storage.count("State"),
+        "users": storage.count("User")}
