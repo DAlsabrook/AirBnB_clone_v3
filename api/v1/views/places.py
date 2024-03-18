@@ -32,7 +32,7 @@ def place_with_city(city_id):
         if 'user_id' not in http_json:
             abort(400, description="Missing user_id")
         user_check = get_by_id(User, http_json["user_id"], "obj")
-        if not user_check[0]:
+        if user_check is None:
             abort(404)
         new_place = Place(**http_json)
         setattr(new_place, "city_id", city_id)
