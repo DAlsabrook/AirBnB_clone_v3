@@ -14,8 +14,7 @@ def users():
 
     # Returns all User instances
     if request.method == 'GET':
-        users = [user.to_dict()
-                     for user in storage.all(User).values()]
+        users = [user.to_dict() for user in storage.all(User).values()]
         return jsonify(users)
 
     # Creates a new user
