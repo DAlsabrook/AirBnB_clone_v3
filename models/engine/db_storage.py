@@ -62,23 +62,8 @@ class DBStorage:
             return None
 
     def count(self, cls=None):
-        """
-        Counts number of objects in database for specific class or all objects
-        """
-        # Check to see if a class was given to query
-        if cls is not None:
-            # Query the specific class and count instances
-            count = self.__session.query(func.count()).select_from(
-                cls).scalar()
-        else:
-            # If no class is given count all class instances
-            count = 0
-            # Iterate through all classes and count instances
-            for clss in classes.values():
-                iter_count = self.__session.query(func.count()).select_from(
-                    clss).scalar()
-                count += iter_count
-        return count
+        """Return number of objects"""
+        return len(self.all(cls))
 
     # Used in personal test files only (m2m.py, printdb.py)
     def get_engine(self):
