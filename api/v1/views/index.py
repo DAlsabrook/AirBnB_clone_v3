@@ -12,21 +12,20 @@ def status_json():
     status["status"] = "OK"
     return status
 
-# Need to do pull request and review file for task 2/3 for this to work
-# @app_views.route('/api/v1/stats')
-# def get_class_counts():
-#     """Returns the counts of each classes instances"""
-#     from models.amenity import Amenity
-#     from models.city import City
-#     from models.place import Place
-#     from models.review import Review
-#     from models.state import State
-#     from models.user import User
-#     from models.__init__ import storage
-#     classes = {"Amenity": Amenity, "City": City,
-#                "Place": Place, "Review": Review,
-#                 "State": State, "User": User}
-#     dict = {}
-#     for cls_str, cls in classes.items():
-#         dict[cls_str] = storage.count(cls)
-#     return dict
+@app_views.route('/stats')
+def get_class_counts():
+    """Returns the counts of each classes instances"""
+    from models.amenity import Amenity
+    from models.city import City
+    from models.place import Place
+    from models.review import Review
+    from models.state import State
+    from models.user import User
+    from models.__init__ import storage
+    classes = {"Amenity": Amenity, "City": City,
+               "Place": Place, "Review": Review,
+                "State": State, "User": User}
+    dict = {}
+    for cls_str, cls in classes.items():
+        dict[cls_str] = storage.count(cls)
+    return dict
