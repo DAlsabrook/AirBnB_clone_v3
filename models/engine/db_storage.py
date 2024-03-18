@@ -63,11 +63,9 @@ class DBStorage:
 
     def count(self, cls=None):
         """Return number of objects"""
-        if cls is None:
-            return len(self.all())
         return len(self.all(cls))
 
-    # Used in personal test files only (m2m.py, printdb.py)
+    # Used in personal test files only
     def get_engine(self):
         """Returns the engine."""
         return self.__engine
