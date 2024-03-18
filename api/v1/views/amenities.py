@@ -65,9 +65,9 @@ def amenity_with_id(amenity_id):
             abort(400, description="Not a JSON")
         for key, val in amenity_data.items():
             if key != 'id' and key != 'created_at' and key != 'updated_at':
-                setattr(amenity, key, val)
+                setattr(amenity[0], key, val)
         storage.save()
-        return jsonify(amenity.to_dict()), 200
+        return jsonify(amenity[0].to_dict()), 200
 
 
 def get_by_id(cls, id, switch):
