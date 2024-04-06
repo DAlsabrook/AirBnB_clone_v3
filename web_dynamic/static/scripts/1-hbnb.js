@@ -3,7 +3,7 @@ $(document).ready(function () {
     const checkedAmenities = [];
     // checks if the checkbox is checked 
     $('input:checkbox').click(function () {
-        // if it is, appends to the array Amenity
+        // if it is, appends to the array
         if ($(this).is(":checked")) {
             checkedAmenities.push($(this).attr('data-name'));
         // if it isnt, remove the amenity
