@@ -39,7 +39,8 @@ section.filters > button:hover {
     margin: 12px 0 5px 0;
 }
 
-.locations > h4, .amenities > h4 {
+.locations > h4,
+.amenities>h4 {
     font-weight: 400;
     font-size: 14px;
     margin: 0 0 5px 0;
@@ -93,5 +94,26 @@ section.filters > button:hover {
 
 .amenities > .popover > li {
     margin-left: 50px;
-    margin-bottom: 10px;
+}
+
+li.amenity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 35px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: blue;
+}
+
+h4.checkedList {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
