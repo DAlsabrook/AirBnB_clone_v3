@@ -6,12 +6,12 @@ from api.v1.views import app_views
 from flask import jsonify
 
 
-@app_views.route('/status')
+@app_views.route('/status', strict_slashes=False, methods=['GET'])
 def status_json():
     """Return the status 'OK' if working"""
     status = {}
     status["status"] = "OK"
-    return status
+    return jsonify(status)
 
 
 @app_views.route('/stats', strict_slashes=False, methods=['GET'])
