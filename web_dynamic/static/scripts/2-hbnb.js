@@ -17,8 +17,7 @@ $(document).ready(function () {
     }
   });
   $.ajax({
-    // localhost works and 0.0.0.0 does not. I have no idea why.
-    // url: 'http://localhost:5001/api/v1/status/',
+    // url: 'http://localhost:5001/api/v1/status/', //////////// For testing on windows
     url: 'http://0.0.0.0:5001/api/v1/status/',
     type: 'GET',
     success: function (response) {
@@ -33,19 +32,3 @@ $(document).ready(function () {
     }
   });
 });
-
-// You have to run the api in a seperate terminal.
-// First set the environment variable "export HBNB_API_PORT = 5001"
-  // and run the command "python3 -m api.v1.app"
-// Second open a new terminal and set all env variable to run the flask app
-  // "export HBNB_MYSQL_USER=hbnb_dev
-  // export HBNB_MYSQL_PWD=hbnb_dev_pwd
-  // export HBNB_MYSQL_HOST=localhost
-  // export HBNB_MYSQL_DB=hbnb_dev_db
-  // export HBNB_TYPE_STORAGE=db"
-  // and run the command "python3 -m web_dynamic.0-hbnb"
-
-// Idk if local host or 0.0.0.0 are the same thing but the 0's aint working.
-// the task specifically tells us to use the 0.0.0.0 adress but when i do it
-// just gives me an "invalid adress" error in the browser console.
-// other than that task 3 is done

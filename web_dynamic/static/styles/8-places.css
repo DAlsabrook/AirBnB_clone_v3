@@ -10,8 +10,7 @@ article {
   display: flex;
   width: 390px;
   flex: none;
-  flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: column;
   align-content: flex-start;
 
   padding-top: 10px;
@@ -37,7 +36,7 @@ article {
   font-size: small;
   text-align: left;
   padding: 0px;
-  width: 80%;
+  width: 75%;
 }
 
 .price_by_night {
@@ -83,6 +82,7 @@ article {
 .user {
   margin-top: 5px;
   margin-bottom: 5px;
+  align-self: flex-start;
 }
 
 .description {

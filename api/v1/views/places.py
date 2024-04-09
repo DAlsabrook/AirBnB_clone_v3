@@ -105,6 +105,12 @@ def places_search():
     states = request_json.get('states', []) # List of state ids
     cities = request_json.get('cities', []) # List of city ids
     amenities = request_json.get('amenities', []) # List of amenity ids
+    
+    # Initialize lists so checks for length dont error
+    states_cities_obj_list = [] # List of city objects from states
+    cities_obj_list = [] # List of city objects from cities
+    all_city_objs = [] # Combined list of city objects
+
 
     # Create list of city objects from states in request
     if len(states) != 0:
@@ -133,11 +139,6 @@ def places_search():
         amenities_objs = [storage.get(Amenity, amenity_id) for amenity_id in amenities]
         # Set places_objs to only places with ALL amenities
         places_objs = [place for place in places_objs if all(amenity in place.amenities for amenity in amenities_objs)]
-
-    # Get the user name from the user_id in each place
-    for place in places_objs:
-        user_obj = storage.get(User, place.user_id)
-        place.user = user_obj.first_name + " " + user_obj.last_name
 
     # Make list serializable
     places_objs = [place.to_dict() for place in places_objs]
