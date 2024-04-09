@@ -92,3 +92,57 @@ def get_by_id(cls, id, switch):
         obj = [obj for obj in storage.all(cls).values()
                if obj.id == id]
         return obj if obj else None
+
+@app_views.route('/places_search', methods=['POST'], strict_slashes=False)
+def places_search():
+    from models.state import State
+    from models.city import City
+    from models.amenity import Amenity
+
+    request_json = request.get_json() # Get JSON from request
+    if request_json is None:
+        return jsonify({"error": "Not a JSON"}), 400
+    states = request_json.get('states', []) # List of state ids
+    cities = request_json.get('cities', []) # List of city ids
+    amenities = request_json.get('amenities', []) # List of amenity ids
+
+    # Create list of city objects from states in request
+    if len(states) != 0:
+        states_cities_obj_list = []
+        for state_id in states: # For each state id in states list
+            for city in storage.get(State, state_id).cities: # For each city in states cities list
+                states_cities_obj_list.append(city) # Add city object to list
+
+    # Create list of city objects from cities in request
+    if len(cities) != 0:
+        cities_obj_list = [storage.get(City, city_id) for city_id in cities]
+
+    # Combine both city lists and remove cities with matching ids
+    if len(states_cities_obj_list) > 0 and len(cities_obj_list) > 0:
+        all_city_objs = list({city.id: city for city in states_cities_obj_list + cities_obj_list}.values())
+    elif len(states_cities_obj_list) > 0:
+        all_city_objs = states_cities_obj_list
+    elif len(cities_obj_list) > 0:
+        all_city_objs = cities_obj_list
+
+    # Create a list of all places from filtered cities
+    places_objs = [place for city in all_city_objs for place in city.places]
+
+    # Create a list of amenity objects from amenity ids
+    if len(amenities) != 0:
+        amenities_objs = [storage.get(Amenity, amenity_id) for amenity_id in amenities]
+        # Set places_objs to only places with ALL amenities
+        places_objs = [place for place in places_objs if all(amenity in place.amenities for amenity in amenities_objs)]
+
+    # Get the user name from the user_id in each place
+    for place in places_objs:
+        user_obj = storage.get(User, place.user_id)
+        place.user = user_obj.first_name + " " + user_obj.last_name
+
+    # Make list serializable
+    places_objs = [place.to_dict() for place in places_objs]
+    if len(amenities) != 0:
+        for place in places_objs: # Change amenities to list of dicts instead of objects
+            place['amenities'] = [amenity.to_dict() for amenity in place['amenities']]
+    return jsonify(places_objs), 200
+
