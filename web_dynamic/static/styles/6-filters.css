@@ -103,12 +103,36 @@ li.amenity {
     height: 35px;
 }
 
-input[type="checkbox"] {
+.state {
+    margin-bottom: 20px;
+}
+
+/* Style the state checkboxes and names */
+.state input[type="checkbox"] {
     margin-right: 10px;
 }
 
-input[type="checkbox"]:checked {
-    background-color: blue;
+.state h2 {
+    display: inline;
+}
+
+/* Style the city list items */
+.city {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+/* Style the city checkboxes and names */
+.city input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.city h4 {
+    display: inline;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
 }
 
 h4.checkedList {
