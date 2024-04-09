@@ -98,14 +98,14 @@ def places_search():
     from models.state import State
     from models.city import City
     from models.amenity import Amenity
-
+    print(request)
     request_json = request.get_json() # Get JSON from request
     if request_json is None:
         return jsonify({"error": "Not a JSON"}), 400
     states = request_json.get('states', []) # List of state ids
     cities = request_json.get('cities', []) # List of city ids
     amenities = request_json.get('amenities', []) # List of amenity ids
-    
+
     # Initialize lists so checks for length dont error
     states_cities_obj_list = [] # List of city objects from states
     cities_obj_list = [] # List of city objects from cities
@@ -130,6 +130,8 @@ def places_search():
         all_city_objs = states_cities_obj_list
     elif len(cities_obj_list) > 0:
         all_city_objs = cities_obj_list
+    else: # If no states or cities given by request, get all cities
+        all_city_objs = storage.all(City).values()
 
     # Create a list of all places from filtered cities
     places_objs = [place for city in all_city_objs for place in city.places]
